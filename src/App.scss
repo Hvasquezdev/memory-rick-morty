@@ -6,4 +6,16 @@
   width: 100%;
   padding: 24px 40px 0 40px;
   font-family: 'Montserrat', sans-serif;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 32px;
+}
+
+.app__content {
+  border-radius: 16px 16px 0 0;
+  background-color: colors.$yellow-100;
+  padding: 36px 72px 23px 72px;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
 }
