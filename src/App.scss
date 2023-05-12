@@ -1,0 +1,9 @@
+@use './assets/scss/variables' as colors;
+
+.app {
+  background-color: colors.$blue-600;
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px 40px 0 40px;
+  font-family: 'Montserrat', sans-serif;
+}
