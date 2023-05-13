@@ -1,5 +1,17 @@
+@use '../../assets/scss/variables' as colors;
+
 .home {
   &__title {
     margin-bottom: 24px;
+  }
+
+  &__content {
+    .home-actions {
+      margin-top: 48px;
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      bottom: 16px;
+    }
   }
 }

@@ -4,6 +4,7 @@ import CharactersList from '../../components/CharactersList';
 import Title from '../../components/Title';
 import Loader from '../../components/Loader';
 import './Home.scss';
+import Button from '../../components/Button';
 
 const Home = () => {
   const { characters, loadingCharacters } = useCharactersStore();
@@ -17,11 +18,19 @@ const Home = () => {
       {loadingCharacters ? (
         <Loader />
       ) : (
-        <CharactersList>
-          {characters.map((character, key) => (
-            <CharacterCard character={character} key={key} isFlipped />
-          ))}
-        </CharactersList>
+        <div className='home__content'>
+          <CharactersList>
+            {characters.map((character, key) => (
+              <CharacterCard character={character} key={key} isFlipped />
+            ))}
+          </CharactersList>
+
+          <div className="home-actions">
+            <Button>
+              Jugar
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );
