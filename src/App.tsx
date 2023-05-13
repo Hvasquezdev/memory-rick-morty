@@ -3,7 +3,6 @@ import { router } from './router';
 import Header from './components/shared/Header';
 import './App.scss';
 
-
 function App() {
   return (
     <div className='app'>
