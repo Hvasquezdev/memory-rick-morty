@@ -8,7 +8,7 @@ function App() {
     <div className='app'>
       <Header />
 
-      <main className="app__content">
+      <main className='app__content'>
         <RouterProvider router={router} />
       </main>
     </div>
