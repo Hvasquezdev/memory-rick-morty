@@ -2,6 +2,7 @@ import { ApolloError, gql, useLazyQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
 
 export interface Character {
+  id: number;
   name: string;
   status: string;
   species: string;
@@ -17,6 +18,7 @@ interface UseCharactersByIds {
 const CHARACTER_QUERY = gql`
   query CharactersByIds($ids: [ID!]!) {
     charactersByIds(ids: $ids) {
+      id
       image
       name
       status
