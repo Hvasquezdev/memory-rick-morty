@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     if (characters.length) {
-      setCharacters([...characters, ...characters].sort((a, b) => a.id - b.id));
+      setCharacters([...characters, ...characters]);
       setLoadingCharacters(false);
     }
   }, [characters, setCharacters, setLoadingCharacters]);
