@@ -1,3 +1,5 @@
-.home .title {
-  margin-bottom: 24px;
+.home {
+  &__title {
+    margin-bottom: 24px;
+  }
 }
