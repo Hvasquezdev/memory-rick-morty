@@ -8,16 +8,22 @@ interface TitleProps
   size?: 'lg' | 'xxl';
 }
 
-const Title = ({ type = 'h1', children, className = '', align = 'left', size, ...props }: TitleProps) => {
-
+const Title = ({
+  type = 'h1',
+  children,
+  className = '',
+  align = 'left',
+  size,
+  ...props
+}: TitleProps) => {
   const classNames = () => {
     const classNamesObj = {
       [`title--${size}`]: size,
       [`title--${align}`]: align,
-    }
+    };
 
-    return Object.entries(classNamesObj).join(' ');
-  }
+    return Object.keys(classNamesObj).join(' ');
+  };
 
   return React.createElement(
     type,
