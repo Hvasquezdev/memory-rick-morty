@@ -25,7 +25,7 @@ const CHARACTER_QUERY = gql`
   }
 `;
 
-const useCharactersByIds = (ids: Array<number>): UseCharactersByIds => {
+const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
   const [getCharacters, { data, loading, error }] = useLazyQuery(CHARACTER_QUERY, {
     variables: {
       ids,
@@ -44,7 +44,7 @@ const useCharactersByIds = (ids: Array<number>): UseCharactersByIds => {
   }, [shouldGetCharacters, getCharacters]);
 
   return {
-    characters: data as Character[],
+    characters: data?.charactersByIds || [],
     loading,
     error,
   };
