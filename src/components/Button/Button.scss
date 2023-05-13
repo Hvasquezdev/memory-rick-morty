@@ -1,0 +1,54 @@
+@use '../../assets/scss/variables' as colors;
+
+.button {
+  padding: 12px 80px;
+  border-radius: 8px;
+  background-color: colors.$green-100;
+  color: colors.$blue-500;
+  border-width: 0 0 4px 4px;
+  border-color: colors.$yellow-300;
+  border-style: solid;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+  box-shadow: -1px 1px 4px 0px colors.$shadow;
+
+  &--green-200,
+  &--green-300 {
+    border-color: colors.$yellow-200;
+  }
+
+  &--green-200 {
+    background-color: colors.$green-200;
+  }
+
+  &--green-300 {
+    background-color: colors.$green-300;
+  }
+
+  &--green-300,
+  &--yellow-500 {
+    color: colors.$white;
+  }
+
+  &--yellow-300,
+  &--yellow-400,
+  &--yellow-500 {
+    border-color: colors.$green-100;
+  }
+
+  &--yellow-300 {
+    background-color: colors.$yellow-300;
+  }
+
+  &--yellow-400 {
+    background-color: colors.$yellow-400;
+  }
+
+  &--yellow-500 {
+    background-color: colors.$yellow-500;
+  }
+}
