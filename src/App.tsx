@@ -10,13 +10,14 @@ import './App.scss';
 function App() {
   const { ids } = useCharactersRandomIds();
   const { characters } = useCharactersByIds(ids);
-  const { setCharacters } = useCharactersStore();
+  const { setCharacters, setLoadingCharacters } = useCharactersStore();
 
   useEffect(() => {
     if (characters.length) {
       setCharacters([...characters, ...characters].sort((a, b) => a.id - b.id));
+      setLoadingCharacters(false);
     }
-  }, [characters, setCharacters]);
+  }, [characters, setCharacters, setLoadingCharacters]);
 
   return (
     <div className='app'>
