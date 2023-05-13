@@ -1,0 +1,5 @@
+.characters-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 212px);
+  gap: 16px;
+}
