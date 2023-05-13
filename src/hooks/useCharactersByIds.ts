@@ -1,7 +1,7 @@
 import { ApolloError, gql, useLazyQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
 
-interface Character {
+export interface Character {
   name: string;
   status: string;
   species: string;
