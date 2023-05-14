@@ -3,6 +3,7 @@ import { useGameStore } from '../store/useGameStore';
 import Home from '../views/Home';
 import Board from '../views/Board';
 import ProtectedRoute from '../guards/ProtectedRoute';
+import Results from '../views/Results';
 
 const Router = () => {
   const isPlaying = useGameStore((state) => state.isPlaying);
@@ -22,7 +23,7 @@ const Router = () => {
         />
         <Route path='/results' element={
           <ProtectedRoute hasAccess={isWinner}>
-            <p>Finalizado!</p>
+            <Results />
           </ProtectedRoute>
         } />
         <Route path='*' element={<Home />} />

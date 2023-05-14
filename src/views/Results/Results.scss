@@ -1,0 +1,26 @@
+@use '../../assets/scss/variables' as colors;
+
+.results {
+  max-width: 560px;
+  margin: 0 auto;
+
+  .title {
+    color: colors.$blue-500;
+    margin-bottom: 16px;
+  }
+
+  &__details {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    color: colors.$black;
+    margin-bottom: 72px;
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 54px;
+  }
+}
