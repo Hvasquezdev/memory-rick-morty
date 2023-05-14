@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useGameManager } from '../../hooks/useGameManager';
 import { useCharactersStore } from '../../store/useCharactersStore';
+import { useGameStore } from '../../store/useGameStore';
+import { useNavigate } from 'react-router-dom';
 import CharacterCard from '../../components/CharacterCard';
 import CharactersList from '../../components/CharactersList';
 import Title from '../../components/Title';
@@ -8,9 +10,18 @@ import './Board.scss';
 
 const Board = () => {
   const { characters } = useCharactersStore();
-  const { board, selectedIndex, matchedIndex, handleFlipCard, turnsPlayed, matchedCount } =
-    useGameManager(characters);
+  const { setIsWinner, setTurnsPlayed } = useGameStore();
+  const {
+    board,
+    selectedIndex,
+    matchedIndex,
+    handleFlipCard,
+    turnsPlayed,
+    matchedCount,
+    isWinner,
+  } = useGameManager(characters);
   const [showCards, setShowCards] = useState(true);
+  const navigate = useNavigate();
 
   const handleStartGame = useCallback(() => {
     const shuffleTimeout = setTimeout(() => {
@@ -19,7 +30,22 @@ const Board = () => {
     }, 3000);
   }, []);
 
+  const handleEndGame = useCallback(() => {
+    setIsWinner(true);
+    setTurnsPlayed(turnsPlayed);
+    navigate('/results');
+  }, [turnsPlayed, setIsWinner, setTurnsPlayed, navigate]);
+
   useEffect(() => handleStartGame, [handleStartGame]);
+
+  useEffect(() => {
+    if (isWinner) {
+      const isWinnerTimeout = setTimeout(() => {
+        handleEndGame();
+        clearTimeout(isWinnerTimeout);
+      }, 1200);
+    }
+  }, [isWinner, handleEndGame]);
 
   return (
     <div className='board'>
