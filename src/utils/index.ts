@@ -16,3 +16,16 @@ export const getRandomUniqueNumbers = (maxCount = 50, amountOfRequiredNumbers = 
 
   return ids;
 };
+
+export const classNames = (classesObj: { [key: string]: boolean }) => {
+  const classes = Object.entries(classesObj)
+    .map((item) => {
+      const [key, value] = item;
+
+      if (!key || !value) return '';
+      return key.trim();
+    })
+    .join(' ');
+
+  return classes.length ? classes : '';
+};
