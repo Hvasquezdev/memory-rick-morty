@@ -38,7 +38,8 @@ const Board = () => {
           <CharacterCard
             key={index}
             character={character}
-            isFlipped={showCards || index in selectedIndex || index in matchedIndex}
+            isFlipped={showCards || index in selectedIndex}
+            isMatched={index in matchedIndex}
             onBackFaceClick={() => handleFlipCard(index)}
           />
         ))}
