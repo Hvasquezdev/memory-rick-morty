@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './router';
 import { useCharactersRandomIds } from './hooks/useCharactersRandomIds';
 import { useCharactersByIds } from './hooks/useCharactersByIds';
 import { useCharactersStore } from './store/useCharactersStore';
+import Router from './router';
 import Header from './components/shared/Header';
 import './App.scss';
 
@@ -24,7 +23,7 @@ function App() {
       <Header />
 
       <main className='app__content'>
-        <RouterProvider router={router} />
+        <Router />
       </main>
     </div>
   );
