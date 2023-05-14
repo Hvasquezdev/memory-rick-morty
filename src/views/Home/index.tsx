@@ -7,11 +7,21 @@ import Title from '../../components/Title';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import './Home.scss';
+import { useGameStore } from '../../store/useGameStore';
 
 const Home = () => {
   const { characters, loadingCharacters } = useCharactersStore();
-  const orderedCharacters = useMemo(() => [...characters].sort((a, b) => a.id - b.id), [characters]);
+  const setIsPlaying = useGameStore((state) => state.setIsPlaying);
+  const orderedCharacters = useMemo(
+    () => [...characters].sort((a, b) => a.id - b.id),
+    [characters],
+  );
   const navigate = useNavigate();
+
+  const handleStartGame = () => {
+    setIsPlaying(true);
+    navigate('/board');
+  };
 
   return (
     <div className='home'>
@@ -30,7 +40,7 @@ const Home = () => {
           </CharactersList>
 
           <div className='home-actions'>
-            <Button onClick={() => navigate('/board')}>Jugar</Button>
+            <Button onClick={handleStartGame}>Jugar</Button>
           </div>
         </div>
       )}
