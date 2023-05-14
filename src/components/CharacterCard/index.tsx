@@ -2,18 +2,33 @@ import { Character } from '../../hooks/useCharactersByIds';
 import Title from '../Title';
 import rickAndMortyPortal from '../../assets/img/ricky_morty_img.png';
 import './CharacterCard.scss';
+import { classNames } from '../../utils';
+import { useMemo } from 'react';
 
 interface CharacterCardProps {
   character: Character;
   isFlipped?: boolean;
+  isMatched?: boolean;
   onBackFaceClick?: () => void;
 }
 
-const CharacterCard = ({ character, isFlipped, onBackFaceClick }: CharacterCardProps) => {
-  const flippedClassName = isFlipped ? 'character-card--flipped' : '';
+const CharacterCard = ({
+  character,
+  isFlipped,
+  isMatched,
+  onBackFaceClick,
+}: CharacterCardProps) => {
+  const customClassNames = useMemo(
+    () =>
+      classNames({
+        ['character-card--flipped']: !!isFlipped,
+        ['character-card--matched']: !!isMatched,
+      }),
+    [isFlipped, isMatched],
+  );
 
   return (
-    <div className={`character-card ${flippedClassName}`}>
+    <div className={`character-card ${customClassNames}`}>
       <div className='character-card__face character-card__face--front'>
         <img
           className='character-thumb'

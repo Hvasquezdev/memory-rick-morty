@@ -7,8 +7,10 @@
   transition: 0.3s transform ease-in;
   transform-style: preserve-3d;
 
-  &--flipped {
+  &--flipped,
+  &--matched {
     transform: rotateY(180deg);
+    opacity: 1;
   }
 
   &__face {
@@ -23,6 +25,9 @@
     &--front {
       background-color: colors.$white;
       transform: rotateY(180deg);
+      transition: opacity 0.8s ease-out;
+      transition-delay: 1s;
+      opacity: 1;
 
       .character-thumb {
         border-radius: 8px;
@@ -51,6 +56,14 @@
       display: grid;
       place-content: center;
       cursor: pointer;
+    }
+  }
+
+  &--matched {
+    pointer-events: none;
+
+    .character-card__face--front {
+      opacity: 0;
     }
   }
 }
