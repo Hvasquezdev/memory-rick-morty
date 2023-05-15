@@ -2,10 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getRandomUniqueNumbers } from '../utils';
 import { Character } from './useCharactersByIds';
 
+type IndexRecord = { [key: number]: number };
+
 const useGameManager = (characters: Character[] = []) => {
   const [board, setBoard] = useState<Character[]>([]);
-  const [matchedIndex, setMatchedIndex] = useState<{ [key: number]: number }>({});
-  const [selectedIndex, setSelectedIndex] = useState<{ [key: number]: number }>({});
+  const [matchedIndex, setMatchedIndex] = useState<IndexRecord>({});
+  const [selectedIndex, setSelectedIndex] = useState<IndexRecord>({});
   const [turnsPlayed, setTurnsPlayed] = useState(0);
 
   const matchedCount = useMemo(() => {
@@ -33,13 +35,6 @@ const useGameManager = (characters: Character[] = []) => {
     }
   };
 
-  const handleResetGame = () => {
-    setMatchedIndex({});
-    setSelectedIndex({});
-    setTurnsPlayed(0);
-    shuffleCharacters();
-  };
-
   const cardFlippedTimeout: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     clearTimeout(cardFlippedTimeout.current as NodeJS.Timeout);
@@ -59,7 +54,7 @@ const useGameManager = (characters: Character[] = []) => {
       }));
     }
 
-    setTurnsPlayed((turns) => turns += 1);
+    setTurnsPlayed((turns) => turns + 1);
 
     cardFlippedTimeout.current = setTimeout(() => {
       setSelectedIndex({});
@@ -78,7 +73,6 @@ const useGameManager = (characters: Character[] = []) => {
     isWinner,
     turnsPlayed,
     matchedCount,
-    resetGame: handleResetGame,
   };
 };
 
