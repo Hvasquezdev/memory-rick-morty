@@ -21,8 +21,8 @@ const CharacterCard = ({
   const customClassNames = useMemo(
     () =>
       classNames({
-        ['character-card--flipped']: !!isFlipped,
-        ['character-card--matched']: !!isMatched,
+        'character-card--flipped': !!isFlipped,
+        'character-card--matched': !!isMatched,
       }),
     [isFlipped, isMatched],
   );
