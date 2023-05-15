@@ -1,5 +1,5 @@
-import { it, describe, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { it, describe, expect, vi } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CharacterCard from '.';
 import { Character } from '../../hooks/useCharactersByIds';
 
@@ -37,16 +37,28 @@ describe('CharacterCard', () => {
   });
 
   it('should has flipped className', () => {
-    const { container } = render(<CharacterCard character={mockCharacter} isFlipped />)
-    const cardEl = container.firstChild as HTMLElement;
+    const { container } = render(<CharacterCard character={mockCharacter} isFlipped />);
+    const cardEl = container.getElementsByClassName('character-card')[0];
 
     expect(cardEl.className).toMatch(/flipped/);
-  })
+  });
 
   it('should has matched className', () => {
-    const { container } = render(<CharacterCard character={mockCharacter} isMatched />)
-    const cardEl = container.firstChild as HTMLElement;
+    const { container } = render(<CharacterCard character={mockCharacter} isMatched />);
+    const cardEl = container.getElementsByClassName('character-card')[0];
 
     expect(cardEl.className).toMatch(/matched/);
-  })
+  });
+
+  it('should call onCardBackClick when click on back face', () => {
+    const mockCardClick = vi.fn();
+
+    const { container } = render(
+      <CharacterCard character={mockCharacter} onBackFaceClick={mockCardClick} />,
+    );
+    const cardBackFace = container.getElementsByClassName('character-card__face--back')[0];
+
+    fireEvent.click(cardBackFace);
+    expect(mockCardClick).toBeCalled();
+  });
 });
