@@ -1,33 +1,69 @@
 # Rick and morty memory game!
 
-A la hora de iniciar un desafio, proyecto, tarea o similares, es muy importante entender lo que se busca resolver, y teniendo en cuenta eso, uno de los primeros pasos a la hora de abordar este desafio fue entender bien lo que se buscaba lograr, lo que se buscaba construir.
+### Pasos para correr el proyecto en local:
+- Crear un archivo `.env` con la variable `VITE_API_URL=<API_URL_HERE>`
+- Instalar las dependencias `npm install`
+- En la consola escribir `npm run dev`
+---
 
-Teniendo en mente el objetivo, lo que se buscaba contruir o solucionar con este desafio, mi forma de iniciar en este proyecto luego de haber leido los requerimientos, fue comenzar a revisar y entender lo que se mostraba en el figma, de modo que de esta forma ya podia ir pensando los diferentes componentes, vistas y datos necesarios para el proyecto.
+Para el desarrollo de este proyecto, luego de haber entendido la logica funcional del mismo, y siguiendo lo planteado en el diseno propuesto de figma, se pudieron definir los siguientes componentes necesarios para la aplicacion:
 
-Una vez hecho todo lo mencionado, comence a iniciar la base del proyecto, que seria toda esta configuracion inicial e instalacion de las herramientas necesarias, que en este sentido se construyo con la ayuda de Vite (Una alternativa a webpack mucho mas rapida, sencilla y ligera).
+- Button:
+Componente base el cual se realizo con objetivos de reutilizacion de estilos.
 
-Teniendo instalado todo lo necesario, tocaba hacer la configuracion de algunas librerias que se utilizarian en el proyecto, como podria ser el **Router** y en conjunto con esto pude aprovechar de implementar el diseno del wrapper principal que se encargaria de mostrar el contenido de las paginas, ya que este estaria ligado al router en el sentido de que seria donde se mostraria todo su contenido.
+- Title:
+Componente base que se realizo debido a que en el diseno planteado muchos de los titulos utilizados compartian estilos que podian ser reutilizados
 
-Al haber configurado el router y realizado el maquetado del wrapper principal de la aplicacion, ya estaria listo para proceder a desarrollar lo que se podria llamar el **Core** de la aplicacion, refiriendo con esto al lugar en donde estaria toda esta logica de negocio que necesitariamos para obtener los datos que queremos mostrar en la app, dicha logica teniendo en mente que uno de los requerimientos (deseables) era utilizar **GraphQL** se procedio a realizar mediante hooks.
+- Loader:
+Componente encargado de mostrar un loader animado con la tematica del proyecto que seria utilizado a la hora de cargar los personajes
 
-El primer **Modulo** de este core que implemente fue una funcionalidad **Extra** para la aplicacion, que vi conveniente agregar luego de haber entendido lo que se buscaba realizar en este desafio, dicha funcionalidad seria tener la posibilidad de mostrar personajes **aleatorios** en base al maximo de personajes que exista en la api, por lo que aprovechando las bondades de GraphQL a la hora de traer data, comence a realizar dos cosas:
+- Shared -> Header:
+El header principal de la aplicacion, se tomo la decisión de colocarlo en la carpeta **shared** debido a que seria un componente compartido para todas las vistas
 
-- Una utilidad que me devolviera un array de numeros aleatorios (Que no se repitieran) para poder obtener IDs random de los personajes usando como limite de ese metodo "random" el maximo de personajes que devolviera la api
-- Crear el hook encargado de manejar toda esta funcionalidad y devolver dicha lista de IDs
+- CharacterCard:
+Componente encargado de mostrar toda la informacion de un personaje.
+Para este componente se utilizo una solucion en la cual se tuvieran dos caras en un plano "3D" de css. Esta solucion otorga dos ventajas:
+-- Al voltear la tarjeta, utilizar el plano 3D permite poder ver dicha accion de forma animada
+-- Al manejar la tarjeta con dos caras (front-face y back-face) permite enlanzar el evento click solo a la cara trasera evitando de esta forma tener que validar click innecesarios cuando se este mostrando su cara frontal.
 
-Al haber creado esta primera funcionalidad extra, ya pudimos pasar a crear la parte principal de core que seria la obtención de los personajes en donde utilizando GraphQL le estariamos pasando la lista de IDs generados previamente, para obtener estos personajes random, de modo que al juego le damos esta sensacion de "Dinamismo" por decirlo de alguna forma, y que no sea del todo repetitivo al menos en el sentido de que siempre que juegues habran personajes diferentes.
+- CharacterList:
+Componente encargado de ordernar los **CharacterCard** en un grid, este componente se creo debido a que se mostraria en varios lugares la lista de tarjetas, y esto nos ayuda tanto a la reutilizacion del mismo grid como a su modificacion haciendo esto en un solo lugar.
 
-Luego de haber creado esta logica **core** el siguiente paso fue crear el componente de **CharacterCard** para comenzar a popular la vista principal, mostrando de forma ordenada los personajes que se utilizarian, para este card se utilizo una solucion en la cual se tuvieran dos caras en un plano "3D" de css de modo que pudieramos ver de forma animada cuando dicho card se volteara, y el cual nos permitia enlazar el evento click para la cara trasera, de forma de que cuando dicha card estuviera mostrando su cara frontal el evento click no se podria ejecutar para evitar este tipo de validaciones de evitar que se haga click si la card esta volteada.
+Teniendo definidos los componentes base del proyecto, se definieron y crearon las siguientes vistas:
 
-Una vez creado el componente CharacterCard, se procedio a crear dos de los componentes base de la app que serian el **Title** que se creo principalmente porque los titulos utilizados en la app compartian varios estilos que podian ser reutilizados, y luego el componente **Button** que de igual forma contenia estilos reutilizables por ende ese fue el motivo para la creacion de dichos componentes base.
+- Home:
+Esta vista seria la encargada de mostrar los personajes que se utilizaran en el juego, los cuales serian renderizados de forma ordenada con sus pares repetidos.
+En esta vista seria el punto donde se hara la obtencion de los personajes iniciales utilizando los hooks encargados de esto, que seran explicados mas adelante.
 
-Teniendo lista la primera vista del Home, se procedio a trabajar el la logica principal del juego, para esta nueva vista de **/board** para este caso la decisión tomada fue separar la logica principal de la vista, de modo que fue el motivador principal para la creacion del hook **useGameManager** en donde estaria toda la logica necesaria para el funcionamiento del juego, ya sea la de hacer el shuffle de las cartas, el flip de las mismas como tambien indicar si ya hay algun ganar y los puntos del mismo, dejando asi a la vista solo la responsabilidad de pintar los datos y manejar el estado del **end-game** que seria simplemente actualizar el store y enviar al usuario a la pagina de los resultados.
+- Board:
+Vista encargada de mostrar el tablero de juego, con los personajes ya mezclados y de mostrar el puntaje, aciertos y estado final del juego utilizando el game manager que sera explicado mas adelante.
 
-Un punto extra a mencionar es que para este board, especificamente para las cards se le agrego una propiedad para que las mismas tuvieran una animacion agradable a la vista para que cuando hayan dos que hagan match cumpla con este requerimiento de que luego de 1seg las cartas matcheadas desaparezcan.
+- Results:
+La vista final del proyecto, seria un componente basico encargado de mostrar un mensaje de celebracion como tambien la cantidad de puntos que se obtendrian del store del juego, como tambien la lista de acciones disponibles (Ir al inicio y Repetir juego).
 
-Una vez hecho el board encargado de toda la funcionalidad del juego, se procedio a realizar la vista final de los resultados, en donde simplemente utilizando el **Store** se obtienen los datos importantes a mostrar como podria ser la cantidad de puntos que le tomo al jugador completar el juego.
+Con las vistas y componentes ya definidos el siguiente paso es la definicion y creacion de esta logica de negocio del juego, en donde se realizo creando los siguientes hooks:
 
-## Comentarios adicionales
-- Se agrego un componente guarda encargado de evitar que se pudiera acceder a vistas como el board o la pagina de resultados en caso de que no se haya iniciado el juego (Haciendo click en **jugar**) o de que aun no haya un ganador.
-- Se agrego un loader animado con la tematica de Rick and morty que aparecera cuando se este cargando la lista inician del usuario, de modo que sea mas "Amigable" la espera.
-- En este caso se utilizo **zustand** como libreria encargada del store debido a que (En base a mi criterio habiendo probado otras librerias) considero que es mucho mas sencilla de manejar y de configurar para todo tipo de proyectos.
+- useCharactersRandomIds:
+Para poder agregar un poco mas de "aleatoriedad" al juego, se implemento esta solucion que utilizando **GraphQL** se obtuvo el total de personajes que existen en el api, teniendo esta informacion, con ayuda de una utilidad que se creo **getRandomUniqueNumbers** se le pasa como parametro el total de personajes y nos devuelve una lista de IDs unicos que utilizaremos para obtener los diferentes personajes.
+
+- useCharactersByIds:
+Este hook seria encargado de devolver una lista de multiples personajes en donde para hacer esto primero estaria recibiendo una lista de IDs de los personajes que queremos obtener.
+
+Luego de realizar la logica **Core** para obtener los datos necesarios, se comenzo con el desarrollo del **Game Manager**.
+
+El **Game Manager** seria un hook encargado de manejar toda la logica del juego, refiriendome con esto al mezclado de los personajes, el manejo de los puntos, aciertos y si ya hay un ganador.
+
+Se tomo la decision de crear este **Game Manager** y no hacerlo en la vista de **/board** para evitar "manchar" la vista con logica que puede ser manejada por un servicio o en este caso un hook. Esto tiene la ventaja de un mejor control tanto de la logica pura del juego como tambien de la vista al estar separados manteniendo responsabilidades separadas.
+
+Una vez definidos los componentes, vistas y esta logica principal, dos puntos importantes que tambien hay que mencionar seria el **Store** y validaciones para las distintas rutas.
+
+Se utilizo **zustand** para el manejo del **Store**, en donde se creo un solo **Store** encargado de manejar los datos escenciales que necesitaban ser compartidos, los cuales serian:
+
+- La lista de personajes: **characters**
+- La cantidad de turnos jugados: **turnsPlayer**
+- Si se esta jugando: **isPlaying**
+- Si ya hay un ganador: **isWinner**
+
+Para la validacion de rutas se creo un componente guarda que se encarga de evitar que se renderize el componente hijo si no se cumple la validacion necesaria.
+
+Este componente guarda se creo para evitar el acceso a la pagina de **/board** en caso de que no se este jugando, y de esta forma se fuerza al usuario a hacer click en **Jugar** para iniciar el juego, y para evitar que se acceda a la pagina de **/results** en caso de que aun no haya ganador.
