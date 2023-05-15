@@ -1,27 +1,38 @@
-import { useCharactersStore } from '../../store/useCharactersStore';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CharacterCard from '../../components/CharacterCard';
 import CharactersList from '../../components/CharactersList';
 import Title from '../../components/Title';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
-import './Home.scss';
 import { useGameStore } from '../../store/useGameStore';
+import { useCharactersRandomIds } from '../../hooks/useCharactersRandomIds';
+import { useCharactersByIds } from '../../hooks/useCharactersByIds';
+import './Home.scss';
 
 const Home = () => {
-  const { characters, loadingCharacters } = useCharactersStore();
-  const setIsPlaying = useGameStore((state) => state.setIsPlaying);
+  const { ids, loading: isLoadingIds } = useCharactersRandomIds();
+  const { characters, loading: isLoadingCharacters } = useCharactersByIds(ids);
+  const { setCharacters, characters: savedCharacters, setIsPlaying } = useGameStore();
+
   const orderedCharacters = useMemo(
-    () => [...characters].sort((a, b) => a.id - b.id),
-    [characters],
+    () => [...savedCharacters].sort((a, b) => a.id - b.id),
+    [savedCharacters],
   );
   const navigate = useNavigate();
+
+  const isLoading = isLoadingIds || isLoadingCharacters;
 
   const handleStartGame = () => {
     setIsPlaying(true);
     navigate('/board');
   };
+
+  useEffect(() => {
+    if (characters.length) {
+      setCharacters([...characters, ...characters]);
+    }
+  }, [characters, setCharacters]);
 
   return (
     <div className='home'>
@@ -29,7 +40,7 @@ const Home = () => {
         Personajes
       </Title>
 
-      {loadingCharacters ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className='home__content'>

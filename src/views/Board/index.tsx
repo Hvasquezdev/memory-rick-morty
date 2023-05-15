@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useGameManager } from '../../hooks/useGameManager';
-import { useCharactersStore } from '../../store/useCharactersStore';
 import { useGameStore } from '../../store/useGameStore';
 import { useNavigate } from 'react-router-dom';
 import CharacterCard from '../../components/CharacterCard';
@@ -9,8 +8,7 @@ import Title from '../../components/Title';
 import './Board.scss';
 
 const Board = () => {
-  const { characters } = useCharactersStore();
-  const { setIsWinner, setTurnsPlayed } = useGameStore();
+  const { setIsWinner, setTurnsPlayed, characters } = useGameStore();
   const {
     board,
     selectedIndex,
