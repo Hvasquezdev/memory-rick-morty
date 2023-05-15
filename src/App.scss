@@ -4,18 +4,27 @@
   background-color: colors.$blue-600;
   min-height: 100vh;
   width: 100%;
-  padding: 24px 40px 0 40px;
+  padding: 24px 24px 0 24px;
   font-family: 'Montserrat', sans-serif;
   display: grid;
   grid-template-rows: auto 1fr;
   row-gap: 32px;
 
+  @media screen and (min-width: 768px) {
+    padding: 24px 40px 0 40px;
+  }
+
   &__content {
     border-radius: 16px 16px 0 0;
     background-color: colors.$yellow-100;
-    padding: 36px 72px 23px 72px;
+    padding: 22px 16px 20px 16px;
     width: 100%;
-    max-width: 1040px;
     margin: 0 auto;
+    max-width: 308px;
+    
+    @media screen and (min-width: 768px) {
+      max-width: 1040px;
+      padding: 36px 72px 23px 72px;
+    }
   }
 }

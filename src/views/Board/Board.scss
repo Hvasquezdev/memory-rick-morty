@@ -4,5 +4,12 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
+
+    .title {
+      @media screen and (max-width: 768px) {
+        font-size: 16px;
+        line-height: 22px;
+      }
+    }
   }
 }
