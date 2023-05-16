@@ -34,7 +34,9 @@ const Board = () => {
     navigate('/results');
   }, [turnsPlayed, setIsWinner, setTurnsPlayed, navigate]);
 
-  useEffect(() => handleStartGame, [handleStartGame]);
+  useEffect(() => {
+    handleStartGame();
+  }, [handleStartGame]);
 
   useEffect(() => {
     if (isWinner) {
