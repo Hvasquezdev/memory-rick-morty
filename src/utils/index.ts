@@ -29,3 +29,20 @@ export const classNames = (classesObj: { [key: string]: boolean }) => {
 
   return classes.length ? classes : '';
 };
+
+const getRandomPercentage = () => {
+  return Math.floor(Math.random() * 101);
+};
+
+export const generateRandomBorderRadius = () => {
+  const top = getRandomPercentage();
+  const bottom = getRandomPercentage();
+  const left = getRandomPercentage();
+  const right = getRandomPercentage();
+
+  const borderRadiusNew = `${top}% ${100 - top}% ${100 - bottom}% ${bottom}% / ${100 - left}% ${
+    100 - right
+  }% ${right}% ${left}%`;
+
+  return borderRadiusNew;
+};

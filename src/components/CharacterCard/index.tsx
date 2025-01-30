@@ -2,7 +2,7 @@ import { Character } from '../../hooks/useCharactersByIds';
 import Title from '../Title';
 import rickAndMortyPortal from '../../assets/img/ricky_morty_img.png';
 import './CharacterCard.scss';
-import { classNames } from '../../utils';
+import { classNames, generateRandomBorderRadius } from '../../utils';
 import { useMemo } from 'react';
 
 interface CharacterCardProps {
@@ -34,6 +34,8 @@ const CharacterCard = ({
     [isFlipped, isMatched, index, shouldAnimate],
   );
 
+  const randomBorderRadius = useMemo(() => generateRandomBorderRadius(), []);
+
   return (
     <div
       className={`character-card ${customClassNames}`}
@@ -42,7 +44,16 @@ const CharacterCard = ({
       }}
     >
       <div className='character-card__face character-card__face--front'>
-        {position !== undefined && <span className='character-position'>#{position}</span>}
+        {position !== undefined && (
+          <span
+            className='character-position'
+            style={{
+              borderRadius: randomBorderRadius,
+            }}
+          >
+            #{position}
+          </span>
+        )}
 
         <img
           className='character-thumb'

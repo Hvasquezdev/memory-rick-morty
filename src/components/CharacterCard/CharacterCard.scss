@@ -16,11 +16,19 @@
     height: 260px;
   }
 
+  &:hover {
+    transform: rotateZ(2deg) rotateY(0deg);
+  }
+
   &--flipped,
   &--matched {
     transform: rotateY(180deg);
     opacity: 1;
     animation: none;
+
+    &:hover {
+      transform: rotateZ(2deg) rotateY(180deg);
+    }
   }
 
   &__face {
