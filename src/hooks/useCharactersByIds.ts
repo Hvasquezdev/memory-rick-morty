@@ -36,7 +36,7 @@ const devsData = [
   {
     name: 'Marcela',
     status: 'Backend',
-    species: 'Preguntón',
+    species: '',
   },
   {
     name: 'Angel',
