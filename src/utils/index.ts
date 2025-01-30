@@ -5,14 +5,14 @@ export const getRandomUniqueNumbers = (maxCount = 50, amountOfRequiredNumbers = 
     maxCount > amountOfRequiredNumbers ? amountOfRequiredNumbers : maxCount;
   const ids: number[] = [];
 
-  while (ids.length < minAmountOfNumbers) {
-    const number = Math.floor(Math.random() * maxCount) + 1;
-    const isIdSaved = ids.some((id) => id === number);
+  const numbers = Array.from({ length: maxCount }, (_, i) => i + 1);
 
-    if (!isIdSaved) {
-      ids.push(number);
-    }
+  for (let i = numbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
   }
+
+  ids.push(...numbers.slice(0, minAmountOfNumbers));
 
   return ids;
 };
