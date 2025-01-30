@@ -74,8 +74,8 @@ const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
     return characters?.map((character, index) => ({
       ...character,
       name: devsData?.[index].name || character.name,
-      status: devsData?.[index].status || character.status,
-      species: devsData?.[index].species || character.species,
+      status: devsData?.[index].status || "",
+      species: devsData?.[index].species || "",
     }))
   }, [data?.charactersByIds]);
 
