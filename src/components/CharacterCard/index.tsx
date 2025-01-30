@@ -40,6 +40,8 @@ const CharacterCard = ({
       }}
     >
       <div className='character-card__face character-card__face--front'>
+        {index !== undefined && <span className='character-position'>#{index - 0.5}</span>}
+
         <img
           className='character-thumb'
           src={character.image}

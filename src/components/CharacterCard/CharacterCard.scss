@@ -43,6 +43,29 @@
       transition-delay: 1s;
       opacity: 1;
 
+      .character-position {
+        background-color: #1a7a83;
+        color: #ffffff;
+        border-width: 0 0 4px 4px;
+        border-color: #d8e054;
+        border-style: solid;
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 0.1em;
+        text-align: center;
+        font-family: Montserrat, sans-serif;
+        padding: 0;
+        border-radius: 100%;
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: -12px;
+        top: -12px;
+      }
+
       .character-thumb {
         border-radius: 8px;
         margin-bottom: 8px;
