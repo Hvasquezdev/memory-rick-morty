@@ -27,6 +27,29 @@ const CHARACTER_QUERY = gql`
   }
 `;
 
+const devsData = [
+  {
+    name: 'Diego',
+    status: 'Backend',
+    species: 'Preguntón',
+  },
+  {
+    name: 'Marcela',
+    status: 'Backend',
+    species: 'Preguntón',
+  },
+  {
+    name: 'Angel',
+    status: 'Software Engineer',
+    species: 'La maquina troncoso',
+  },
+  {
+    name: 'Hector',
+    status: 'Frontend',
+    species: 'Veloz',
+  },
+];
+
 const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
   const [getCharacters, { data, loading, error }] = useLazyQuery(CHARACTER_QUERY, {
     variables: {
@@ -45,8 +68,19 @@ const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
     }
   }, [shouldGetCharacters, getCharacters]);
 
+  const charactersByIds = useMemo(() => {
+    const characters = (data?.charactersByIds || []) as Character[]
+
+    return characters?.map((character, index) => ({
+      ...character,
+      name: devsData?.[index].name || character.name,
+      status: devsData?.[index].status || character.status,
+      species: devsData?.[index].species || character.species,
+    }))
+  }, [data?.charactersByIds]);
+
   return {
-    characters: data?.charactersByIds || [],
+    characters: charactersByIds,
     loading,
     error,
   };

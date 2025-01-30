@@ -6,6 +6,8 @@ import { classNames } from '../../utils';
 import { useMemo } from 'react';
 
 interface CharacterCardProps {
+  index?: number;
+  shouldAnimate?: boolean;
   character: Character;
   isFlipped?: boolean;
   isMatched?: boolean;
@@ -13,7 +15,9 @@ interface CharacterCardProps {
 }
 
 const CharacterCard = ({
+  index,
   character,
+  shouldAnimate,
   isFlipped,
   isMatched,
   onBackFaceClick,
@@ -23,12 +27,15 @@ const CharacterCard = ({
       classNames({
         'character-card--flipped': !!isFlipped,
         'character-card--matched': !!isMatched,
+        'character-card--animated': !!shouldAnimate && index !== undefined,
       }),
-    [isFlipped, isMatched],
+    [isFlipped, isMatched, index, shouldAnimate],
   );
 
   return (
-    <div className={`character-card ${customClassNames}`}>
+    <div className={`character-card ${customClassNames}`} style={{
+      animationDelay: index !== undefined ? `${index / 2}s` : undefined,
+    }}>
       <div className='character-card__face character-card__face--front'>
         <img
           className='character-thumb'

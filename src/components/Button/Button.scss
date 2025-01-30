@@ -16,6 +16,11 @@
   font-family: Montserrat, sans-serif;
   box-shadow: -1px 1px 4px 0px colors.$shadow;
 
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   &--green-200,
   &--green-300 {
     border-color: colors.$yellow-200;

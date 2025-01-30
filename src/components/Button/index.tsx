@@ -6,14 +6,19 @@ type ButtonColor = 'green-200' | 'green-300' | 'yellow-300' | 'yellow-400' | 'ye
 interface ButtonProps {
   children?: ReactNode;
   color?: ButtonColor;
+  isDisabled?: boolean;
   onClick?: () => void;
 }
 
-const Button = ({ children, color, onClick }: ButtonProps) => {
+const Button = ({ children, color, isDisabled, onClick }: ButtonProps) => {
   const colorClassName = color ? `button--${color}` : '';
 
   return (
-    <button className={`button ${colorClassName}`} onClick={onClick}>
+    <button
+      className={`button ${colorClassName} ${!!isDisabled && 'button--disabled'}`}
+      disabled={isDisabled}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

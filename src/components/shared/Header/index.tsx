@@ -12,7 +12,7 @@ const Header = () => {
         height={180}
       />
 
-      <h1 className='header__title'>Juego de memoria</h1>
+      <h1 className='header__title'>Daily charlies</h1>
     </header>
   );
 };
