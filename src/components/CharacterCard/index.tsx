@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 
 interface CharacterCardProps {
   index?: number;
+  position?: number;
   shouldAnimate?: boolean;
   character: Character;
   isFlipped?: boolean;
@@ -16,6 +17,7 @@ interface CharacterCardProps {
 
 const CharacterCard = ({
   index,
+  position,
   character,
   shouldAnimate,
   isFlipped,
@@ -40,7 +42,7 @@ const CharacterCard = ({
       }}
     >
       <div className='character-card__face character-card__face--front'>
-        {index !== undefined && <span className='character-position'>#{index - 0.5}</span>}
+        {position !== undefined && <span className='character-position'>#{position}</span>}
 
         <img
           className='character-thumb'

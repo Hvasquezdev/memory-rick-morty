@@ -65,7 +65,8 @@ const Home = () => {
             {board.map((character, index) => (
               <CharacterCard
                 key={character.id}
-                index={index + 1.5}
+                index={index + 0.5}
+                position={index + 1}
                 character={character}
                 shouldAnimate={shouldAnimate}
                 isFlipped={index in selectedIndex}
