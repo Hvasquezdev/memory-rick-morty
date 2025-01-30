@@ -40,13 +40,18 @@ const devsData = [
   },
   {
     name: 'Angel',
-    status: 'Software Engineer',
+    status: 'Backend',
     species: 'La maquina troncoso',
   },
   {
     name: 'Hector',
     status: 'Frontend',
     species: 'Veloz',
+  },
+  {
+    name: 'Marquitos',
+    status: 'Frontend',
+    species: '',
   },
 ];
 

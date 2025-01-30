@@ -33,9 +33,12 @@ const CharacterCard = ({
   );
 
   return (
-    <div className={`character-card ${customClassNames}`} style={{
-      animationDelay: index !== undefined ? `${index / 2}s` : undefined,
-    }}>
+    <div
+      className={`character-card ${customClassNames}`}
+      style={{
+        animationDelay: index !== undefined ? `${index / 2}s` : undefined,
+      }}
+    >
       <div className='character-card__face character-card__face--front'>
         <img
           className='character-thumb'
@@ -51,7 +54,8 @@ const CharacterCard = ({
           </Title>
 
           <p className='character-details__status'>
-            {character.status} - {character.species}
+            {character.status}
+            {character?.species ? ` - ${character.species}` : ''}
           </p>
         </div>
       </div>
