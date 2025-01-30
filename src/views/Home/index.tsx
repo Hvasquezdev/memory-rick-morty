@@ -12,7 +12,7 @@ import './Home.scss';
 
 const Home = () => {
   const { ids, loading: isLoadingIds } = useCharactersRandomIds();
-  const { characters, loading: isLoadingCharacters } = useCharactersByIds(ids);
+  const { characters, charactersOffDays, loading: isLoadingCharacters } = useCharactersByIds(ids);
   const { setCharacters } = useGameStore();
 
   const {
@@ -35,13 +35,16 @@ const Home = () => {
       setShouldAnimate(true);
       clearTimeout(initialTimeout);
 
-      const shuffleTimeout = setTimeout(() => {
-        setShouldAnimate(false);
-        setGameStatus('playing');
-        clearTimeout(shuffleTimeout);
-      }, 3000);
+      const shuffleTimeout = setTimeout(
+        () => {
+          setShouldAnimate(false);
+          setGameStatus('playing');
+          clearTimeout(shuffleTimeout);
+        },
+        characters?.length ? characters.length * 550 : 2000,
+      );
     }, 500);
-  }, [shuffleCharacters, handleResetSelectedIndex]);
+  }, [shuffleCharacters, characters, handleResetSelectedIndex]);
 
   const isLoading = isLoadingIds || isLoadingCharacters;
 
@@ -73,6 +76,10 @@ const Home = () => {
                 isMatched={index in matchedIndex}
                 onBackFaceClick={() => gameStatus === 'playing' && handleFlipCard(index)}
               />
+            ))}
+
+            {charactersOffDays.map((character) => (
+              <CharacterCard key={character.id} character={character} isFlipped={true} />
             ))}
           </CharactersList>
 

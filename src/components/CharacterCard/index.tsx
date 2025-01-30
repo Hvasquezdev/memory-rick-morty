@@ -44,14 +44,16 @@ const CharacterCard = ({
       }}
     >
       <div className='character-card__face character-card__face--front'>
-        {position !== undefined && (
+        {(position !== undefined || character?.isOffDay) && (
           <span
-            className='character-position'
+            className={`character-position ${
+              character?.isOffDay ? 'character-position--off-day' : ''
+            }`}
             style={{
               borderRadius: randomBorderRadius,
             }}
           >
-            #{position}
+            {character.isOffDay ? '🏖️Vacaciones' : `#${position}`}
           </span>
         )}
 
