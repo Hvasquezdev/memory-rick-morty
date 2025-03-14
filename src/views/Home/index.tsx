@@ -6,9 +6,13 @@ import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import { useGameStore } from '../../store/useGameStore';
 import { useCharactersRandomIds } from '../../hooks/useCharactersRandomIds';
-import { useCharactersByIds } from '../../hooks/useCharactersByIds';
+import { Character, useCharactersByIds } from '../../hooks/useCharactersByIds';
 import { useGameManager } from '../../hooks/useGameManager';
 import './Home.scss';
+
+const getPosition = (characters: Character[], character: Character) => {
+  return characters.findIndex((char) => char.id === character.id) + 1;
+};
 
 const Home = () => {
   const { ids, loading: isLoadingIds } = useCharactersRandomIds();
@@ -25,12 +29,14 @@ const Home = () => {
   } = useGameManager(characters);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [gameStatus, setGameStatus] = useState<'idle' | 'playing' | 'starting'>('idle');
+  const [flippedCharacters, setFlippedCharacters] = useState<Character[]>([]);
 
   const handleStartGame = useCallback(() => {
     handleResetSelectedIndex();
     setGameStatus('starting');
-
+    
     const initialTimeout = setTimeout(() => {
+      setFlippedCharacters([]);
       shuffleCharacters();
       setShouldAnimate(true);
       clearTimeout(initialTimeout);
@@ -69,12 +75,17 @@ const Home = () => {
               <CharacterCard
                 key={character.id}
                 index={index + 0.5}
-                position={index + 1}
+                position={getPosition(flippedCharacters, character)}
                 character={character}
                 shouldAnimate={shouldAnimate}
                 isFlipped={index in selectedIndex}
                 isMatched={index in matchedIndex}
-                onBackFaceClick={() => gameStatus === 'playing' && handleFlipCard(index)}
+                onBackFaceClick={() => {
+                  if (gameStatus === 'playing') {
+                    setFlippedCharacters([...flippedCharacters, character]);
+                    handleFlipCard(index);
+                  }
+                }}
               />
             ))}
 

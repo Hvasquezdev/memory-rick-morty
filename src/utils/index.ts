@@ -1,4 +1,4 @@
-export const getRandomUniqueNumbers = (maxCount = 50, amountOfRequiredNumbers = 6) => {
+export const getRandomUniqueNumbers = (maxCount = 50, amountOfRequiredNumbers = 6, shuffleTimes = 1) => {
   if (!maxCount) return [];
 
   const minAmountOfNumbers =
@@ -7,9 +7,11 @@ export const getRandomUniqueNumbers = (maxCount = 50, amountOfRequiredNumbers = 
 
   const numbers = Array.from({ length: maxCount }, (_, i) => i + 1);
 
-  for (let i = numbers.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+  for (let s = 0; s < shuffleTimes; s++) {
+    for (let i = numbers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+    }
   }
 
   ids.push(...numbers.slice(0, minAmountOfNumbers));

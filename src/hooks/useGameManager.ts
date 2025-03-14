@@ -20,7 +20,7 @@ const useGameManager = (characters: Character[] = []) => {
   );
 
   const shuffleCharacters = useCallback(() => {
-    const randomIndex = getRandomUniqueNumbers(characters.length, characters.length);
+    const randomIndex = getRandomUniqueNumbers(characters.length, characters.length, 2);
     const randomizedCharacters = randomIndex.map((index) => characters[index - 1]);
 
     setBoard(randomizedCharacters);
