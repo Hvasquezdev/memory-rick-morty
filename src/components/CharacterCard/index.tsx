@@ -53,7 +53,11 @@ const CharacterCard = ({
               borderRadius: randomBorderRadius,
             }}
           >
-            {character.isOffDay ? '🏖️Vacaciones' : `#${position}`}
+            {character.isOffDay
+              ? character?.offDays?.label
+                ? character?.offDays?.label
+                : '🏖️Vacaciones'
+              : `#${position}`}
           </span>
         )}
 
