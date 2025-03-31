@@ -72,6 +72,10 @@ const devsData = [
     name: 'Marquitos',
     status: 'Frontend',
     species: '',
+    offDays: {
+      start: '2025-03-31',
+      end: '2025-03-31',
+    },
   },
 ];
 
