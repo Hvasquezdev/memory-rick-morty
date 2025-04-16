@@ -49,11 +49,19 @@ const devsData = [
     name: 'Diego',
     status: 'Backend',
     species: 'Preguntón',
+    offDays: {
+      start: '2025-04-17',
+      end: '2025-04-25',
+    },
   },
   {
     name: 'Marcela',
     status: 'Backend',
     species: '',
+    offDays: {
+      start: '2025-04-17',
+      end: '2025-04-25',
+    },
   },
   {
     name: 'Hector',
