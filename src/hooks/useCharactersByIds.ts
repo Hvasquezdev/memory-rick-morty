@@ -55,6 +55,15 @@ const devsData = [
     },
   },
   {
+    name: 'Angel',
+    status: 'Backend',
+    species: 'La maquina troncoso',
+    offDays: {
+      start: '2025-02-05',
+      end: '2025-02-12',
+    },
+  },
+  {
     name: 'Marcela',
     status: 'Backend',
     species: '',
@@ -67,15 +76,6 @@ const devsData = [
     name: 'Hector',
     status: 'Frontend',
     species: 'Veloz',
-  },
-  {
-    name: 'Angel',
-    status: 'Backend',
-    species: 'La maquina troncoso',
-    offDays: {
-      start: '2025-02-05',
-      end: '2025-02-12',
-    },
   },
   {
     name: 'Marquitos',
