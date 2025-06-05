@@ -59,8 +59,8 @@ const devsData = [
     status: 'Backend',
     species: 'La maquina troncoso',
     offDays: {
-      start: '2025-02-05',
-      end: '2025-02-12',
+      start: '2025-06-05',
+      end: '2025-07-01',
     },
   },
   {
@@ -77,16 +77,16 @@ const devsData = [
     status: 'Frontend',
     species: 'Veloz',
   },
-  {
-    name: 'Marquitos',
-    status: 'Frontend',
-    species: '',
-    offDays: {
-      start: '2025-03-31',
-      end: '2025-03-31',
-      label: '😎 Día libre',
-    },
-  },
+  // {
+  //   name: 'Marquitos',
+  //   status: 'Frontend',
+  //   species: '',
+  //   offDays: {
+  //     start: '2025-03-31',
+  //     end: '2025-03-31',
+  //     label: '😎 Día libre',
+  //   },
+  // },
 ];
 
 const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
