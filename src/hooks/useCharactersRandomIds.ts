@@ -22,7 +22,7 @@ const useCharactersRandomIds = (): UseCharactersRandomIds => {
   const { data, loading, error } = useQuery(CHARACTER_COUNT_QUERY);
   const count = data?.characters.info.count || 0;
 
-  const ids = useMemo(() => getRandomUniqueNumbers(count, 5), [count]);
+  const ids = useMemo(() => getRandomUniqueNumbers(count, 4), [count]);
 
   return {
     ids,
