@@ -60,7 +60,7 @@ const devsData = [
     species: 'La maquina troncoso',
     offDays: {
       start: '2025-06-05',
-      end: '2025-07-01',
+      end: '2025-07-02',
     },
   },
   {
