@@ -1,8 +1,18 @@
 @use '../../assets/scss/variables' as colors;
 
 .home {
-  &__title {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
     margin-bottom: 24px;
+  }
+
+  &__gameMode {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   &__content {

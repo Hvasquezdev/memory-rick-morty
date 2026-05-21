@@ -56,4 +56,10 @@
   &--yellow-500 {
     background-color: colors.$yellow-500;
   }
+
+  &--sm {
+    padding: 10px 40px;
+    font-size: 16px;
+    border-width: 0 0 3px 3px;
+  }
 }

@@ -8,6 +8,7 @@ import { useGameStore } from '../../store/useGameStore';
 import { useCharactersRandomIds } from '../../hooks/useCharactersRandomIds';
 import { Character, useCharactersByIds } from '../../hooks/useCharactersByIds';
 import { useGameManager } from '../../hooks/useGameManager';
+import { TEAMS, TEAMS_LABEL } from '../../constants/teams';
 import './Home.scss';
 
 const getPosition = (characters: Character[], character: Character) => {
@@ -15,8 +16,17 @@ const getPosition = (characters: Character[], character: Character) => {
 };
 
 const Home = () => {
-  const { ids, loading: isLoadingIds } = useCharactersRandomIds();
-  const { characters, charactersOffDays, loading: isLoadingCharacters } = useCharactersByIds(ids);
+  const [team, setTeam] = useState<keyof typeof TEAMS | null>(null);
+  const totalCharacters = team ? TEAMS[team].length : null;
+  const { ids, loading: isLoadingIds } = useCharactersRandomIds({
+    totalCharacters: totalCharacters ?? 4,
+    shouldFetch: !!totalCharacters,
+  });
+  const {
+    characters,
+    charactersOffDays,
+    loading: isLoadingCharacters,
+  } = useCharactersByIds(ids, team || 'CHARLIES');
   const { setCharacters } = useGameStore();
 
   const {
@@ -34,7 +44,7 @@ const Home = () => {
   const handleStartGame = useCallback(() => {
     handleResetSelectedIndex();
     setGameStatus('starting');
-    
+
     const initialTimeout = setTimeout(() => {
       setFlippedCharacters([]);
       shuffleCharacters();
@@ -60,15 +70,38 @@ const Home = () => {
     }
   }, [characters, setCharacters]);
 
+  const handleResetGame = useCallback(() => {
+    setTeam(null);
+    handleResetSelectedIndex();
+    setFlippedCharacters([]);
+    setGameStatus('idle');
+    setShouldAnimate(false);
+  }, [handleResetSelectedIndex]);
+
   return (
     <div className='home'>
-      <Title type='h2' size='lg' className='home__title'>
-        Personajes
-      </Title>
+      <header className='home__header'>
+        <Title type='h2' size='lg' className='home__title'>
+          {!team ? 'Selecciona un equipo' : TEAMS_LABEL[team]}
+        </Title>
 
-      {isLoading ? (
-        <Loader />
-      ) : (
+        {!!team && (
+          <Button size='sm' isDisabled={isLoading || gameStatus === 'starting'} onClick={handleResetGame}>
+            Cambiar equipo
+          </Button>
+        )}
+      </header>
+
+      {!team && (
+        <section className='home__gameMode'>
+          <Button onClick={() => setTeam('CHARLIES')}>{TEAMS_LABEL['CHARLIES']}</Button>
+          <Button onClick={() => setTeam('X_AI')}>{TEAMS_LABEL['X_AI']}</Button>
+        </section>
+      )}
+
+      {isLoading && !!team && <Loader />}
+
+      {!isLoading && !!team && (
         <div className='home__content'>
           <CharactersList>
             {board.map((character, index) => (

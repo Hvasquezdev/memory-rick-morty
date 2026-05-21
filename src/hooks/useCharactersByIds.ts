@@ -1,5 +1,6 @@
 import { ApolloError, gql, useLazyQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
+import { TEAMS } from '../constants/teams';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
@@ -44,52 +45,10 @@ const CHARACTER_QUERY = gql`
   }
 `;
 
-const devsData = [
-  {
-    name: 'Diego',
-    status: 'Backend',
-    species: 'Preguntón',
-    offDays: {
-      start: '2025-04-17',
-      end: '2025-04-25',
-    },
-  },
-  {
-    name: 'Angel',
-    status: 'Backend',
-    species: 'La maquina troncoso',
-    offDays: {
-      start: '2025-06-05',
-      end: '2025-07-02',
-    },
-  },
-  {
-    name: 'Marcela',
-    status: 'Backend',
-    species: '',
-    offDays: {
-      start: '2025-04-17',
-      end: '2025-04-25',
-    },
-  },
-  {
-    name: 'Hector',
-    status: 'Frontend',
-    species: 'Veloz',
-  },
-  // {
-  //   name: 'Marquitos',
-  //   status: 'Frontend',
-  //   species: '',
-  //   offDays: {
-  //     start: '2025-03-31',
-  //     end: '2025-03-31',
-  //     label: '😎 Día libre',
-  //   },
-  // },
-];
-
-const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
+const useCharactersByIds = (
+  ids: Array<number> = [],
+  team: keyof typeof TEAMS = 'CHARLIES',
+): UseCharactersByIds => {
   const [getCharacters, { data, loading, error }] = useLazyQuery(CHARACTER_QUERY, {
     variables: {
       ids,
@@ -111,7 +70,7 @@ const useCharactersByIds = (ids: Array<number> = []): UseCharactersByIds => {
     const characters = (data?.charactersByIds || []) as Character[];
 
     return characters?.map((character, index) => {
-      const devCharacter = devsData?.[index];
+      const devCharacter = TEAMS[team]?.[index];
 
       const isInOffDaysRange =
         devCharacter?.offDays &&

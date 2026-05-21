@@ -8,14 +8,17 @@ interface ButtonProps {
   color?: ButtonColor;
   isDisabled?: boolean;
   onClick?: () => void;
+  size?: 'lg' | 'md' | 'sm';
 }
 
-const Button = ({ children, color, isDisabled, onClick }: ButtonProps) => {
+const Button = ({ children, color, isDisabled, onClick, size = 'md' }: ButtonProps) => {
   const colorClassName = color ? `button--${color}` : '';
 
   return (
     <button
-      className={`button ${colorClassName} ${!!isDisabled && 'button--disabled'}`}
+      className={`button ${colorClassName} ${!!isDisabled && 'button--disabled'} ${
+        !!size && `button--${size}`
+      }`}
       disabled={isDisabled}
       onClick={onClick}
     >

@@ -18,11 +18,16 @@ const CHARACTER_COUNT_QUERY = gql`
   }
 `;
 
-const useCharactersRandomIds = (): UseCharactersRandomIds => {
-  const { data, loading, error } = useQuery(CHARACTER_COUNT_QUERY);
+const useCharactersRandomIds = ({
+  totalCharacters = 4,
+  shouldFetch = true,
+}): UseCharactersRandomIds => {
+  const { data, loading, error } = useQuery(CHARACTER_COUNT_QUERY, {
+    skip: !shouldFetch,
+  });
   const count = data?.characters.info.count || 0;
 
-  const ids = useMemo(() => getRandomUniqueNumbers(count, 4), [count]);
+  const ids = useMemo(() => getRandomUniqueNumbers(count, totalCharacters), [count]);
 
   return {
     ids,
